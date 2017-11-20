@@ -1,4 +1,4 @@
-<project name="ProjectA" default="dist" basedir=".">
+<project name="ProjectA" default="test" basedir=".">
   <description>KSB's ant 'Hello, world' build.xml example</description>
   
   <property name="src.dir"   value="src"/>
@@ -26,7 +26,7 @@
     </javac>
   </target>
   
-  <target name="test" depends="build" description="unit test" >
+  <target name="test" depends="dist" description="unit test" >
     <junit errorProperty="test.failed" failureProperty="test.failed">
       <test name="${test.class}" todir="${junit.dir}" />
       <formatter type="brief" usefile="false" />
