@@ -11,7 +11,7 @@
 
 	<target name="jar" depends="compile"> 
             <mkdir dir="Build/JAR"/>
-		<jar basedir="Build/classes" destfile="Build/JAR/HellowSCM.jar"/>
+		<jar basedir="Build/classes" destfile="Build/JAR/HellowSCM.jar">
 <manifest>
                 <attribute name="Main-Class" value="oata.HelloWorSCM"/>
             </manifest>
