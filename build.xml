@@ -12,7 +12,7 @@
 
     <path id="classpath">
         <fileset dir="${lib.dir}" includes="**/*.jar"/>
-        <path location="/home/pruthvi/workspace/ProjectA/junit-4.8.2.jar"/>
+        <path location="/home/pruthvi/workspace1/ProjectA/build/junit-4.8.2.jar"/>
     </path>
 
     <path id="application" location="${jar.dir}/${ant.project.name}.jar"/>
