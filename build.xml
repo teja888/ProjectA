@@ -1,4 +1,4 @@
-<project name="ProjectA" default="test" basedir=".">
+<project name="ProjectA" basedir=".">
   <description>KSB's ant 'Hello, world' build.xml example</description>
   
   <property name="src.dir"   value="src"/>
@@ -20,13 +20,13 @@
     <mkdir dir="${junit.dir}"/>
   </target>
   
-  <target name="build" depends="init" description="build everything under ${src.dir}" >
+  <target name="build"  description="build everything under ${src.dir}" >
     <javac srcdir="${src.dir}" destdir="${build.dir}">
       <classpath refid="classpath"/>
     </javac>
   </target>
   
-  <target name="test" depends="dist" description="unit test" >
+  <target name="test"  description="unit test" >
     <junit errorProperty="test.failed" failureProperty="test.failed">
       <test name="${test.class}" todir="${junit.dir}" />
       <formatter type="brief" usefile="false" />
@@ -36,7 +36,7 @@
     <fail message="Tests failed: check test reports." if="test.failed" />
   </target>
   
-  <target name="dist" depends="build" description="generate the distribution" >
+  <target name="dist"  description="generate the distribution" >
     <jar jarfile="${dist.dir}/hello.jar" basedir="${build.dir}">
       <manifest>
         <attribute name="Main-Class" value="hello.Hello"/>
@@ -44,7 +44,7 @@
     </jar>
   </target>
   
-  <target name="run" depends="dist">
+  <target name="run" >
     <java jar="${dist.dir}/hello.jar" fork="true" />
   </target>
   
