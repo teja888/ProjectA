@@ -1,9 +1,9 @@
-	<project name="ProjectA" default="package">
+	<project name="ProjectA" default="jar">
 
 	<echo message="Welcome to Project A "/>
 
 	<target name="compile" depends="clean">
-		<echo messae="start compiling"/>
+		<echo message="start compiling"/>
 		<mkdir dir="Build/classes"/>
 		<javac srcdir="src" destdir="Build/classes"/>
 	</target>
