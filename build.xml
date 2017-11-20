@@ -44,10 +44,7 @@
     </jar>
   </target>
   
-  <target name="run" >
-    <java jar="${dist.dir}/hello.jar" fork="true" />
-  </target>
-  
+    
   <target name="clean" description="clean up" >
     <delete dir="${build.dir}"/>
     <delete dir="${dist.dir}"/>
