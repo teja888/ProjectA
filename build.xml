@@ -1,41 +1,56 @@
-	<project name="ProjectA" default="jar">
-
-	<echo message="Welcome to Project A "/>
-
-	<target name="compile" depends="clean">
-		<echo message="start compiling"/>
-		<mkdir dir="Build/classes"/>
-		<javac srcdir="src" destdir="Build/classes"/>
-	</target>
-
-
-	<target name="jar" depends="compile"> 
-            <mkdir dir="Build/JAR"/>
-		<jar basedir="Build/classes" destfile="Build/JAR/HellowSCM.jar">
-<manifest>
-                <attribute name="Main-Class" value="oata.HelloWorSCM"/>
-            </manifest>
-</jar>
-
-	</target>
-
-<target name="run">
-        <java jar="build/JAR/HelloSCM.jar" fork="true"/>
-    </target>
-
-
-	
-	<tstamp>
-		<format property="mytime" pattern="MM/dd/yy_mm:ss"/>
-	</tstamp>
-
-	
-	<target name="clean">
-			
-		<delete dir="Build"/>
-
-
-		
-	</target>
-
+<project name="ProjectA" default="dist" basedir=".">
+  <description>KSB's ant 'Hello, world' build.xml example</description>
+  
+  <property name="src.dir"   value="src"/>
+  <property name="build.dir" value="build"/>
+  <property name="dist.dir"  value="dist"/>
+  <property name="junit.dir" value="junit-results"/>
+  
+  <property name="junit.jar" location="/home/pruthvi/workspace1/ProjectA/Build/classes/junit.jar"/>
+  <property name="test.class" value="hello.TestHello"/>
+  
+  <path id="classpath">
+    <pathelement location="${build.dir}" />
+    <pathelement location="${junit.jar}" />
+  </path>
+  
+  <target name="init">
+    <mkdir dir="${build.dir}"/>
+    <mkdir dir="${dist.dir}"/>
+    <mkdir dir="${junit.dir}"/>
+  </target>
+  
+  <target name="build" depends="init" description="build everything under ${src.dir}" >
+    <javac srcdir="${src.dir}" destdir="${build.dir}">
+      <classpath refid="classpath"/>
+    </javac>
+  </target>
+  
+  <target name="test" depends="build" description="unit test" >
+    <junit errorProperty="test.failed" failureProperty="test.failed">
+      <test name="${test.class}" todir="${junit.dir}" />
+      <formatter type="brief" usefile="false" />
+      <formatter type="xml" />
+      <classpath refid="classpath" />
+    </junit>
+    <fail message="Tests failed: check test reports." if="test.failed" />
+  </target>
+  
+  <target name="dist" depends="build" description="generate the distribution" >
+    <jar jarfile="${dist.dir}/hello.jar" basedir="${build.dir}">
+      <manifest>
+        <attribute name="Main-Class" value="hello.Hello"/>
+      </manifest>
+    </jar>
+  </target>
+  
+  <target name="run" depends="dist">
+    <java jar="${dist.dir}/hello.jar" fork="true" />
+  </target>
+  
+  <target name="clean" description="clean up" >
+    <delete dir="${build.dir}"/>
+    <delete dir="${dist.dir}"/>
+    <delete dir="${junit.dir}"/>
+  </target>
 </project>
